@@ -6,7 +6,7 @@ from script_os import ZIP_DIR
 
 
 def test_xlsx_file():
-    with zipfile.ZipFile(ZIP_DIR, 'r') as zip_file:
+    with zipfile.ZipFile(ZIP_DIR) as zip_file:
         with zip_file.open("HW7xlsx.xlsx") as excel_file:
             wb = load_workbook(filename=excel_file)
             sheet = wb.active
@@ -16,7 +16,7 @@ def test_xlsx_file():
 
 
 def test_csv_file():
-    with zipfile.ZipFile(ZIP_DIR, 'r') as zip_file:
+    with zipfile.ZipFile(ZIP_DIR) as zip_file:
         with zip_file.open("HW7csv.csv") as csv_file:
             content = csv_file.read().decode(
                 'utf-8-sig')
@@ -33,7 +33,7 @@ def test_csv_file():
 
 
 def test_pdf_file():
-    with zipfile.ZipFile(ZIP_DIR, 'r') as zip_file:
+    with zipfile.ZipFile(ZIP_DIR) as zip_file:
         with zip_file.open("HW7pdf.pdf") as pdf_file:
             reader = PdfReader(pdf_file)
             page = reader.pages[1]
