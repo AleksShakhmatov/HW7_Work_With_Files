@@ -24,7 +24,7 @@ def test_csv_file():
             second_row = csvreader[1]
             result_list = second_row
             Postback = "ready"
-            IDPostback = '16'
+            IDPostback = '15'
 
             assert result_list[0] == Postback, (f"Название постбэка: {Postback
             } присутствует в таблице {result_list}")
