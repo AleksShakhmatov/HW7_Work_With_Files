@@ -1,16 +1,41 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import csv
+import zipfile
+from openpyxl import load_workbook
+from pypdf import PdfReader
+from script_os import ZIP_DIR
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def test_xlsx_file():
+    with zipfile.ZipFile(ZIP_DIR, 'r') as zip_file:
+        with zip_file.open("HW7xlsx.xlsx") as excel_file:
+            wb = load_workbook(filename=excel_file)
+            sheet = wb.active
+            cell_value = sheet.cell(row=1, column=4).value
+            name = 'Последний запуск'
+            assert name in cell_value, f"Название колонки: {name} есть в файле"
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+def test_csv_file():
+    with zipfile.ZipFile(ZIP_DIR, 'r') as zip_file:
+        with zip_file.open("HW7csv.csv") as csv_file:
+            content = csv_file.read().decode(
+                'utf-8-sig')
+            csvreader = list(csv.reader(content.splitlines()))
+            second_row = csvreader[1]
+            result_list = second_row
+            Postback = "ready"
+            IDPostback = '16'
+
+            assert result_list[0] == Postback, (f"Название постбэка: {Postback
+            } присутствует в таблице {result_list}")
+            assert result_list[1] == IDPostback, (f"ID по: {IDPostback
+            } присутствует в таблице {IDPostback}")
+
+
+def test_pdf_file():
+    with zipfile.ZipFile(ZIP_DIR, 'r') as zip_file:
+        with zip_file.open("HW7pdf.pdf") as pdf_file:
+            reader = PdfReader(pdf_file)
+            page = reader.pages[1]
+            text = page.extract_text()
+            assert 'Тестовый PDF файл' in text
