@@ -26,10 +26,8 @@ def test_csv_file():
             Postback = "ready"
             IDPostback = '16'
 
-            assert result_list[0] == Postback, (f"Название постбэка: {Postback
-            } присутствует в таблице {result_list}")
-            assert result_list[1] == IDPostback, (f"ID по: {IDPostback
-            } присутствует в таблице {IDPostback}")
+            assert result_list[0] == Postback
+            assert result_list[1] == IDPostback
 
 
 def test_pdf_file():
